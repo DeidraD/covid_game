@@ -58,7 +58,7 @@ void draw() {
       text("Use the arrow keys to explore", tx, ty);
                                     // Create person
                                      // Create person text box (for stoyyline)
-                                    // Change shape of dagger into a needle 
+      
     } else {
       text("Edit the code to grab the dagger", tx, ty);
                                   // Create second statement from person for when hero returns
@@ -116,7 +116,7 @@ void draw() {
       rect(x-100, y, 70, 10);
       rect(x-55, y-10, 10, 30);          
     }
-                                // Change shape of the dagger 
+    
                                 // Background image for hallway { ending }
                                 // Background image for hospital room
     
@@ -129,7 +129,6 @@ void draw() {
     rect(0, height-w, width, w);  // Bottom
 
     // Key
-                               // Change shape of key to key card
     if (gate == true) {
       fill(102);
       pushMatrix();
@@ -190,7 +189,6 @@ void draw() {
   }
 
   // Draw hero
-                                // Change hero color and make y-axis longer
   fill(126);
   ellipse(x, y, r, r);
 
