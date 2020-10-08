@@ -33,7 +33,9 @@ void setup() {
 void draw() {
   
   if (mode == 1) {  // ROOM 1
-
+                          // Background image for closet
+                          // Background image for hallway
+    
     // Walls
     background(255);
     noStroke();
@@ -54,8 +56,12 @@ void draw() {
         ellipse(gx, y, 5, 5);
       }
       text("Use the arrow keys to explore", tx, ty);
+                                    // Create person
+                                     // Create person text box (for stoyyline)
+      
     } else {
       text("Edit the code to grab the dagger", tx, ty);
+                                  // Create second statement from person for when hero returns
       
       // Check if hero is on top of the dagger
       if (x > dx && x < dx+30 && y > dy && y < dy+75) {
@@ -111,6 +117,9 @@ void draw() {
       rect(x-55, y-10, 10, 30);          
     }
     
+                                // Background image for hallway { ending }
+                                // Background image for hospital room
+    
     // Walls
     background(255);
     noStroke();
@@ -146,6 +155,7 @@ void draw() {
     // Text
     fill(0);
     if (gate == true) {
+                                    // Add some text ere potentially to further storyline
       text("Grab the key to open the gate", tx-w, ty);
     } 
     else {
