@@ -8,15 +8,16 @@ boolean gate = true;  // Is the gate closed or open?
 PImage img1;
 PImage img2;
 PImage img3;
+PImage img4;
 
 // Hero variables
 int x = 400;  // Hero x-coordinate
 int y = 240;  // Hero y-coordinate
 int r = 40;  // Hero radius
-float speed = 2.0;  // Hero speed
+float speed = 4.0;  // Hero speed
 
 // Room 1 variables
-int gx = 260;  // Gate x-coordinate
+int gx = 260;  // Gate x-coordinate // 220
 int dx = 150;  // Dagger x-coordinate
 int dy = 210;  // Dagger y-coordinate
 
@@ -36,6 +37,7 @@ void setup() {
   img1 = loadImage("stairs.jpg");
   img2 = loadImage("hospital_room.jpeg");
   img3 = loadImage("hallway.png");
+  img4 = loadImage("closet.jpg");
 }
 
 void draw() {
@@ -44,33 +46,38 @@ void draw() {
     
     // Walls
     background(255);
-    // Background image for stairs --Deidra
-    image(img1, 260, 0, 300, 480);
-    // Background image for hallway { begining } -- Deidra
-    image(img3, 560, 0, 300, 480);
-    // Background image for closet -- Deidra { hasn't been made yet }
+    background1();
+
     noStroke();
     fill(0);
-    rect(0, 0, width, w);  // Top
-    rect(0, 0, w, height);  // Left
-    rect(0, height-w, width, w);  // Bottom
+    r1outsideRect();
 
     // Gate
     fill(0);
     if (gate == true) {
+      // Can't see into closet
+      rect(40, 40, 50, 400);
       // Dagger
       fill(102);
       triangle(dx, dy, dx+5, dy-10, dx+10, dy);
       rect(dx, dy, 10, 70);
       rect(dx-10, dy+45, 30, 10);  
-      for (int y = w; y <= height-w; y += 20) {
-        ellipse(gx, y, 5, 5);
-      }
       text("Use the arrow keys to explore", tx, ty);
                                     // Create person -- Chris
                                     // Create person text box (for storyline) -- Chris
                                    
     } else {
+      // Can't see into closet
+      rect(40, 40, 225, 400);
+      background1();
+      r1outsideRect();
+
+      // Background image for closet after it opens- - Deidra
+      if (x < 260){
+        image(img4, 40, 40,  225, 400);
+        r1outsideRect();
+      }
+      
       text("Edit the code to grab the dagger", tx, ty);
                                   // Create second statement from person for when hero returns -- Chris (you don't have to do this until after we meet again).
       
@@ -137,9 +144,7 @@ void draw() {
     image(img3, -100, 0, 300, 480);
     noStroke();
     fill(0);
-    rect(0, 0, width, w);  // Top
-    rect(width-w, 0, w, height);  // Right
-    rect(0, height-w, width, w);  // Bottom
+    r2outsideRect();
 
     // Key
                                // Change shape of key to key card -- Chris
@@ -169,7 +174,7 @@ void draw() {
     // Text
     fill(0);
     if (gate == true) {
-                                    // Add some text ere potentially to further storyline
+                                    // Add some text here potentially to further storyline
       text("Grab the key to open the gate", tx-w, ty);
     } 
     else {
@@ -219,4 +224,26 @@ void draw() {
       x += speed;
     }
   }
+}
+
+void background1(){
+  image(img3, 190, 0, 300, 480);
+  // Background image for stairs --Deidra
+  image(img1, 260, 0, 300, 480);
+  // Background image for hallway { begining } -- Deidra
+  image(img3, 560, 0, 300, 480); 
+}
+
+// Black outside border for room 1
+void r1outsideRect(){
+  rect(0, 0, width, w);  // Top
+  rect(0, 0, w, height);  // Left
+  rect(0, height-w, width, w);  // Bottom 
+}
+
+// Black outside border for room 2
+void r2outsideRect(){
+  rect(0, 0, width, w);  // Top
+  rect(width-w, 0, w, height);  // Right
+  rect(0, height-w, width, w);  // Bottom
 }
