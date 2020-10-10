@@ -46,7 +46,7 @@ void draw() {
   
     if (mode == 1) {  // ROOM 1
         // Walls
-        background(255);
+        background(0);
         background1();
         noStroke();
         fill(0);
@@ -63,9 +63,6 @@ void draw() {
             rect(dx, dy, 10, 70);
             rect(dx-10, dy+45, 30, 10);  
             text("Use the arrow keys to explore", tx, ty);
-                                        // Create person -- Chris
-                                        // Create person text box (for storyline) -- Chris
-                                       
         } else {    
             // Can't see into closet
             rect(40, 40, 225, 400);
@@ -76,10 +73,8 @@ void draw() {
                 image(img4, 40, 40,  225, 400);
                 r1outsideRect();
             }
-      
             text("Edit the code to grab the dagger", tx, ty);
-                                  // Create second statement from person for when hero returns -- Chris (you don't have to do this until after we meet again).
-      
+            
             // Check if hero is on top of the dagger
             if (x > dx && x < dx+30 && y > dy && y < dy+75) {
                 daggerOnOff = true;
@@ -90,60 +85,52 @@ void draw() {
                 triangle(x-100, y, x-100, y+10, x-110, y+5);
                 rect(x-100, y, 70, 10);
                 rect(x-55, y-10, 10, 30);
-            } else{
+            } else {
                 // Dagger
                 fill(102);
                 triangle(dx, dy, dx+5, dy-10, dx+10, dy);
                 rect(dx, dy, 10, 70);
                 rect(dx-10, dy+45, 30, 10);
-              }  
-            }
-            //NPC Text
-            if (gate==true){
-                text("Um...Why dont you have a mask on?", nx, ny);
-                text("Can you please put one on, it is required!", nx, 100);
-            }
-            if (gate==false){
-                if (daggerOnOff==false){
-                    text("Its still not on... I'm waiting", nx, ny);
-                }  
-            }
-            if (daggerOnOff==true){
-                text("Thank you for putting the mask on!", nx, ny);
-            }
-            //NPC
-            pushMatrix();
-            translate(550,150);
-            fill(238,254,35);
-            ellipse(0,0,r,r);
-            fill(0);
-            ellipse(-15,-5,7,20);
-            ellipse(15,-5,7,20);
-            popMatrix();
+            }  
+        }
+        //NPC Text
+        if (gate==true){
+            text("Um...Why dont you have a mask on?", nx, ny);
+            text("Can you please put one on, it is required!", nx, 100);
+        }
+        if (gate==false){
+            if (daggerOnOff==false){
+                text("Its still not on... I'm waiting", nx, ny);
+             }  
+        }
+        if (daggerOnOff==true){
+            text("Thank you for putting the mask on!", nx, ny);
+        }
+        //NPC
+        npc();
 
-            // Stop the hero from walking through walls
-            if (gate == true) {
-                if (x < gx+r+5) {  // Check gate
-                    x = gx+r+5;
-                }
-            } else {
-                if (x < w+r) {  // Check left wall
-                    x = w+r;
-                }
+        // Stop the hero from walking through walls
+        if (gate == true) {
+            if (x < gx+r+5) {  // Check gate
+                x = gx+r+5;
             }
-            if (y > height-w-r) {  // Check bottom wall
-                y = height-w-r;
+        } else {
+            if (x < w+r) {  // Check left wall
+                x = w+r;
             }
-            if (y < w+r) {  // Check top wall
-                y = w+r;
-            }
+        }
+        if (y > height-w-r) {  // Check bottom wall
+            y = height-w-r;
+        }
+        if (y < w+r) {  // Check top wall
+            y = w+r;
+        }
 
-            // Move to room 2
-            if (x > width+r) {
-                mode = 2; 
-                x = r;
-            }
-    
+        // Move to room 2
+        if (x > width+r) {
+            mode = 2; 
+            x = r;
+        }
     } else {  // ROOM 2
         // this doesn't work, we need to troubleshoot why
         if (daggerOnOff == true) {
@@ -268,4 +255,15 @@ void keycard(){
     noStroke();
     rect(70,-10,75,20);
     popMatrix(); 
+}
+
+void npc(){
+    pushMatrix();
+    translate(550,150);
+    fill(238,254,35);
+    ellipse(0,0,r,r);
+    fill(0);
+    ellipse(-15,-5,7,20);
+    ellipse(15,-5,7,20);
+    popMatrix();
 }
