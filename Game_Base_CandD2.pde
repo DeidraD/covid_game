@@ -64,24 +64,7 @@ void draw() {
             if (x < 230){
                 image(img4, 40, 40,  225, 400);
                 r1outsideRect();
-                //mask
-                stroke(255);
-                noFill();
-                ellipse(95, 185, 10, 30);
-                ellipse(95, 155, 10, 30);
-                fill(255);
-                rect(75, 140, 45, 60, 7);
-                fill(142, 185, 234);
-                rect(80, 145, 35, 50, 7); 
-                // Mask 2
-                stroke(255);
-                noFill();
-                ellipse(110, 185, 10, 30);
-                ellipse(110, 155, 10, 30);
-                fill(255);
-                rect(90, 140, 45, 60, 7);
-                fill(142, 185, 234);
-                rect(95, 145, 35, 50, 7);
+                mask1and2();
                 
                 if (daggerOnOff == false){
                     // Mask 3
@@ -103,7 +86,6 @@ void draw() {
                 background1();
                 r1outsideRect();
             }
-            text("Edit the code to grab the dagger", tx, ty);
             
             // Check if hero is on top of the dagger
             if (x > dx && x < dx+30 && y > dy && y < dy+75) {
@@ -111,24 +93,7 @@ void draw() {
             }
             if (daggerOnOff == true) {
                 if (x < 230){
-                    //mask
-                    stroke(255);
-                    noFill();
-                    ellipse(95, 185, 10, 30);
-                    ellipse(95, 155, 10, 30);
-                    fill(255);
-                    rect(75, 140, 45, 60, 7);
-                    fill(142, 185, 234);
-                    rect(80, 145, 35, 50, 7); 
-                    // Mask 2
-                    stroke(255);
-                    noFill();
-                    ellipse(110, 185, 10, 30);
-                    ellipse(110, 155, 10, 30);
-                    fill(255);
-                    rect(90, 140, 45, 60, 7);
-                    fill(142, 185, 234);
-                    rect(95, 145, 35, 50, 7);
+                    mask1and2();
                 }
 
                 // mask on face
@@ -183,15 +148,6 @@ void draw() {
             x = r;
         }
     } else {  // ROOM 2
-        // this doesn't work, we need to troubleshoot why
-        if (daggerOnOff == true) {
-                        // This will be updated once we have the key card established
-            // Dagger
-            fill(102);
-            triangle(x-100, y, x-100, y+10, x-110, y+5);
-            rect(x-100, y, 70, 10);
-            rect(x-55, y-10, 10, 30);          
-        }
                                   
         // Walls
         background(255);
@@ -212,7 +168,6 @@ void draw() {
         // Text
         fill(0);
         if (gate == true) {
-                                    // Add some text here potentially to further storyline
             text("Grab the key to open the gate", tx-w, ty);
         } else {
             text("You have the key. The gate is open!", tx-w, ty);
@@ -249,6 +204,9 @@ void draw() {
     noStroke();
     fill(210, 192, 177);
     ellipse(x, y, r, r);
+    fill(0);
+    ellipse(x-15,y-5,7,20);
+    ellipse(x+15,y-5,7,20);
     if (daggerOnOff == true) {
         // mask test
         stroke(255);
@@ -341,4 +299,25 @@ void npc(){
     fill(142, 185, 234);
     rect(550-25, 150-5, 50, 35, 7);
     
+}
+
+void mask1and2(){
+    //mask
+    stroke(255);
+    noFill();
+    ellipse(95, 185, 10, 30);
+    ellipse(95, 155, 10, 30);
+    fill(255);
+    rect(75, 140, 45, 60, 7);
+    fill(142, 185, 234);
+    rect(80, 145, 35, 50, 7); 
+    // Mask 2
+    stroke(255);
+    noFill();
+    ellipse(110, 185, 10, 30);
+    ellipse(110, 155, 10, 30);
+    fill(255);
+    rect(90, 140, 45, 60, 7);
+    fill(142, 185, 234);
+    rect(95, 145, 35, 50, 7); 
 }
