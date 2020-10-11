@@ -51,47 +51,61 @@ void draw() {
         noStroke();
         fill(0);
         r1outsideRect();
-
         // Gate
         fill(0);
         if (gate == true) {
+          
             // Can't see into closet
             rect(40, 40, 50, 400);
-            // Dagger
-            fill(102);
-            triangle(dx, dy, dx+5, dy-10, dx+10, dy);
-            rect(dx, dy, 10, 70);
-            rect(dx-10, dy+45, 30, 10);  
+
             text("Use the arrow keys to explore", tx, ty);
-        } else {    
-            // Can't see into closet
-            rect(40, 40, 225, 400);
-            background1();
-            r1outsideRect();
+        } else {
             // Background image for closet after it opens- - Deidra
             if (x < 230){
                 image(img4, 40, 40,  225, 400);
                 r1outsideRect();
+                mask1and2();
+                
+                if (daggerOnOff == false){
+                    // Mask 3
+                    stroke(255);
+                    noFill();
+                    ellipse(125, 185, 10, 30);
+                    ellipse(125, 155, 10, 30);
+                    fill(255);
+                    rect(105, 140, 45, 60, 7);
+                    fill(142, 185, 234);
+                    rect(110, 145, 35, 50, 7);
+                    fill(102);
+                }
             }
-            text("Edit the code to grab the dagger", tx, ty);
+            if (x > 230){
+                fill(0);
+                // cant see into closet
+                rect(40, 40, 225, 400);
+                background1();
+                r1outsideRect();
+            }
             
             // Check if hero is on top of the dagger
             if (x > dx && x < dx+30 && y > dy && y < dy+75) {
                 daggerOnOff = true;
             }
             if (daggerOnOff == true) {
-                // Dagger
-                fill(102);
-                triangle(x-100, y, x-100, y+10, x-110, y+5);
-                rect(x-100, y, 70, 10);
-                rect(x-55, y-10, 10, 30);
-            } else {
-                // Dagger
-                fill(102);
-                triangle(dx, dy, dx+5, dy-10, dx+10, dy);
-                rect(dx, dy, 10, 70);
-                rect(dx-10, dy+45, 30, 10);
-            }  
+                if (x < 230){
+                    mask1and2();
+                }
+
+                // mask on face
+                stroke(255);
+                noFill();
+                ellipse(x-15, y+5, 30, 10);
+                ellipse(x+15, y+5, 30, 10);
+                fill(255);
+                rect(x-30, y-10, 60, 45, 7);
+                fill(142, 185, 234);
+                rect(x-25, y-5, 50, 35, 7);
+            }
         }
         //NPC Text
         if (gate==true){
@@ -100,10 +114,12 @@ void draw() {
         }
         if (gate==false){
             if (daggerOnOff==false){
+                fill(102);
                 text("Its still not on... I'm waiting", nx, ny);
              }  
         }
         if (daggerOnOff==true){
+            fill(102);
             text("Thank you for putting the mask on!", nx, ny);
         }
         //NPC
@@ -132,15 +148,6 @@ void draw() {
             x = r;
         }
     } else {  // ROOM 2
-        // this doesn't work, we need to troubleshoot why
-        if (daggerOnOff == true) {
-                        // This will be updated once we have the key card established
-            // Dagger
-            fill(102);
-            triangle(x-100, y, x-100, y+10, x-110, y+5);
-            rect(x-100, y, 70, 10);
-            rect(x-55, y-10, 10, 30);          
-        }
                                   
         // Walls
         background(255);
@@ -161,7 +168,6 @@ void draw() {
         // Text
         fill(0);
         if (gate == true) {
-                                    // Add some text here potentially to further storyline
             text("Grab the key to open the gate", tx-w, ty);
         } else {
             text("You have the key. The gate is open!", tx-w, ty);
@@ -195,21 +201,46 @@ void draw() {
 
     // Draw hero
                                 // Change hero color and make y-axis longer
-    fill(126);
+    noStroke();
+    fill(210, 192, 177);
     ellipse(x, y, r, r);
-
-    // Move hero with arrow keys
-    if (keyPressed && key == CODED) {
-        if (keyCode == UP) { 
-            y -= speed;
-        } else if (keyCode == DOWN) { 
-            y += speed;
-        } else if (keyCode == LEFT) { 
-            x -= speed;
-        } else if (keyCode == RIGHT) {
-            x += speed;
-        }
+    fill(0);
+    ellipse(x-15,y-5,7,20);
+    ellipse(x+15,y-5,7,20);
+    if (daggerOnOff == true) {
+        // mask test
+        stroke(255);
+        noFill();
+        ellipse(x-15, y+5, 30, 10);
+        ellipse(x+15, y+5, 30, 10);
+        fill(255);
+        rect(x-30, y-10, 60, 45, 7);
+        fill(142, 185, 234);
+        rect(x-25, y-5, 50, 35, 7);
     }
+    // Move hero with arrow keys
+    if (keyPressed) {
+      int keyCode1 = int(keyCode);
+      switch(keyCode1){
+          case 37:
+              // Move to the Left
+              x -= speed;
+              break;
+          case 38:
+              // Move Up
+              y -= speed;
+              break;
+          case 39:
+              // Move to the Right
+              x += speed;
+              break;
+          case 40:
+              // Move Down
+              y += speed;
+              break;
+      }
+    }
+    
 }
 
 // Picture Background
@@ -223,6 +254,7 @@ void background1(){
 
 // Black outside border for room 1
 void r1outsideRect(){
+    fill(0);
     rect(0, 0, width, w);  // Top
     rect(0, 0, w, height);  // Left
     rect(0, height-w, width, w);  // Bottom 
@@ -235,6 +267,7 @@ void r2outsideRect(){
     rect(0, height-w, width, w);  // Bottom
 }
 
+// Keycard
 void keycard(){
     fill(102);
     pushMatrix();
@@ -256,7 +289,7 @@ void keycard(){
     rect(70,-10,75,20);
     popMatrix(); 
 }
-
+// Npc 1
 void npc(){
     pushMatrix();
     translate(550,150);
@@ -266,4 +299,35 @@ void npc(){
     ellipse(-15,-5,7,20);
     ellipse(15,-5,7,20);
     popMatrix();
+    
+    stroke(255);
+    noFill();
+    ellipse(550-15, 150+5, 30, 10);
+    ellipse(550+15, 150+5, 30, 10);
+    fill(255);
+    rect(550-30, 150-10, 60, 45, 7);
+    fill(142, 185, 234);
+    rect(550-25, 150-5, 50, 35, 7);
+    
+}
+
+void mask1and2(){
+    //mask
+    stroke(255);
+    noFill();
+    ellipse(95, 185, 10, 30);
+    ellipse(95, 155, 10, 30);
+    fill(255);
+    rect(75, 140, 45, 60, 7);
+    fill(142, 185, 234);
+    rect(80, 145, 35, 50, 7); 
+    // Mask 2
+    stroke(255);
+    noFill();
+    ellipse(110, 185, 10, 30);
+    ellipse(110, 155, 10, 30);
+    fill(255);
+    rect(90, 140, 45, 60, 7);
+    fill(142, 185, 234);
+    rect(95, 145, 35, 50, 7); 
 }
