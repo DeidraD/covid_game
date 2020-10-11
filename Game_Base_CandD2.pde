@@ -218,19 +218,29 @@ void draw() {
         fill(142, 185, 234);
         rect(x-25, y-5, 50, 35, 7);
     }
-
     // Move hero with arrow keys
-    if (keyPressed && key == CODED) {
-        if (keyCode == UP) { 
-            y -= speed;
-        } else if (keyCode == DOWN) { 
-            y += speed;
-        } else if (keyCode == LEFT) { 
-            x -= speed;
-        } else if (keyCode == RIGHT) {
-            x += speed;
-        }
+    if (keyPressed) {
+      int keyCode1 = int(keyCode);
+      switch(keyCode1){
+          case 37:
+              // Move to the Left
+              x -= speed;
+              break;
+          case 38:
+              // Move Up
+              y -= speed;
+              break;
+          case 39:
+              // Move to the Right
+              x += speed;
+              break;
+          case 40:
+              // Move Down
+              y += speed;
+              break;
+      }
     }
+    
 }
 
 // Picture Background
